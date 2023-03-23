@@ -1,29 +1,44 @@
 package com.farhanharis.githubuser
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.farhanharis.githubuser.databinding.ItemRowUserBinding
+import com.farhanharis.githubuser.remote.ItemsItem
 
-class UserAdapter (private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var itemRowUserBinding : ItemRowUserBinding //Convert dari layout activity item_row_user
 
-    fun seOntItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOntItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
 
-    class ListViewHolder(var binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ListViewHolder(var itemRowUserBinding: ItemRowUserBinding) : RecyclerView.ViewHolder(itemRowUserBinding.root){
+        val imgPhotoRv : ImageView = itemView.findViewById(R.id.img_item_photo)
+        val nameRv : TextView = itemView.findViewById(R.id.tv_name)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = ItemRowUserBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return ListViewHolder(binding)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user,parent,false)
+        return ListViewHolder(itemRowUserBinding)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (name, photo) = listUser[position]
-        holder.binding.imgItemPhoto.setImageResource(photo)
-        holder.binding.tvName.text = name
+        val item = listUser[position]
+        Glide.with(holder.itemView.context).load(item.avatarUrl).into(holder.imgPhotoRv)
+        holder.nameRv.text = item.login
+        holder.itemView.setOnClickListener{onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])}
+
+//        val (username, photo) = listUser[position]
+//        Glide.with(holder.itemView.context).load(photo).circleCrop().into(holder.itemRowUserBinding.imgItemPhoto)
+//        holder.itemRowUserBinding.tvName.text = username
+//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
@@ -31,6 +46,6 @@ class UserAdapter (private val listUser: ArrayList<User>) : RecyclerView.Adapter
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: ItemsItem)
     }
 }

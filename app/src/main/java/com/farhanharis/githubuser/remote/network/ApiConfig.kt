@@ -1,4 +1,4 @@
-package com.farhanharis.githubuser
+package com.farhanharis.githubuser.remote.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
