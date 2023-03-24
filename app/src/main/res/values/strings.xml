@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GithubUser</string>
+    <string name="search_hint">Masukkan Username</string>
 </resources>

@@ -1,35 +1,41 @@
 package com.farhanharis.githubuser
 
-import android.content.ClipData.Item
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
-import android.widget.Toast
+import android.widget.ProgressBar
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.farhanharis.githubuser.databinding.ActivityMainBinding
-import com.farhanharis.githubuser.remote.GithubResponse
 import com.farhanharis.githubuser.remote.ItemsItem
-import com.farhanharis.githubuser.remote.network.ApiConfig
 import com.farhanharis.githubuser.viewmodel.MainViewModel
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
 
-    val listUser = ArrayList<ItemsItem>()
     private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var mainViewModel : MainViewModel
+
+    private lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
+        progressBar = findViewById(R.id.progess_bar)
+        progressBar.visibility = View.GONE
+
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+
+        mainViewModel.isLoading.observe(this,
+        ){
+            showLoading(it)
+        }
         mainViewModel.listUser.observe(
             this,
         ){listUser ->
@@ -37,22 +43,48 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+
+        val searchManager  = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val menuItem = menu.findItem(R.id.menu_search)
+        if(menuItem != null){
+            val searchView = menuItem.actionView as SearchView
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            searchView.queryHint = resources.getString(R.string.search_hint)
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+
+                    if(!query.isNullOrEmpty()){
+                        mainViewModel.run { githubFindUser(query) }
+                    }
+                    searchView.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+            })
+        }
+        return true
+    }
+
     private fun setListUserData(listUser: List<ItemsItem>) {
         val adapter = UserAdapter(listUser)
-
         activityMainBinding.rvUser.adapter = adapter
         activityMainBinding.rvUser.layoutManager = LinearLayoutManager(this)
     }
 
-
-    //Menampilkan Loading Bar
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
+    private fun showLoading(isLoading : Boolean){
+        if (isLoading){
             activityMainBinding.progessBar.visibility = View.VISIBLE
-        } else {
+        }else {
             activityMainBinding.progessBar.visibility = View.INVISIBLE
         }
-
-
     }
+
+
 }

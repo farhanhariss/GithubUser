@@ -13,20 +13,19 @@ import com.farhanharis.githubuser.remote.ItemsItem
 class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
-    private lateinit var itemRowUserBinding : ItemRowUserBinding //Convert dari layout activity item_row_user
 
     fun setOntItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
 
-    inner class ListViewHolder(var itemRowUserBinding: ItemRowUserBinding) : RecyclerView.ViewHolder(itemRowUserBinding.root){
+    inner class ListViewHolder(var view: View) : RecyclerView.ViewHolder(view){
         val imgPhotoRv : ImageView = itemView.findViewById(R.id.img_item_photo)
         val nameRv : TextView = itemView.findViewById(R.id.tv_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user,parent,false)
-        return ListViewHolder(itemRowUserBinding)
+        return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
