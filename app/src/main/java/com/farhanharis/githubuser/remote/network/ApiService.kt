@@ -1,12 +1,10 @@
 package com.farhanharis.githubuser.remote.network
 
-import android.provider.Contacts.SettingsColumns.KEY
+import com.farhanharis.githubuser.remote.DetailUserResponse
 import com.farhanharis.githubuser.remote.GithubResponse
 import com.farhanharis.githubuser.remote.ItemsItem
-import com.farhanharis.githubuser.remote.UserResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -21,8 +19,9 @@ interface ApiService {
     //Data User
     @GET ("user/{username}")
     fun getDetailUserData(
-        @Path("username") username : String
-    ) : Call<UserResponse>
+        @Path("username")
+        username : String
+    ) : Call<DetailUserResponse>
 
     // Get Followers
     @GET ("user/{username}/following")

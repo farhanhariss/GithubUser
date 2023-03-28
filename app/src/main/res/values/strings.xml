@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">GithubUser</string>
     <string name="search_hint">Masukkan Username</string>
+    <string name="username_detail_user">Username</string>
+    <string name="full_name_detail_user">Fullname</string>
+    <string name="following_detail_user">Following</string>
+    <string name="followers_detail_user">Followers</string>
+
+
+    <string name="user_number_following">%d following</string>
+    <string name="user_number_followers">%d followers</string>
 </resources>

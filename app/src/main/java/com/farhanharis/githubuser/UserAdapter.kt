@@ -14,6 +14,10 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
+    interface OnItemClickCallback{
+        fun onItemClicked(data: ItemsItem)
+    }
+
     fun setOntItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
@@ -33,18 +37,10 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
         Glide.with(holder.itemView.context).load(item.avatarUrl).into(holder.imgPhotoRv)
         holder.nameRv.text = item.login
         holder.itemView.setOnClickListener{onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])}
-
-//        val (username, photo) = listUser[position]
-//        Glide.with(holder.itemView.context).load(photo).circleCrop().into(holder.itemRowUserBinding.imgItemPhoto)
-//        holder.itemRowUserBinding.tvName.text = username
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
         return listUser.size
     }
 
-    interface OnItemClickCallback{
-        fun onItemClicked(data: ItemsItem)
-    }
 }

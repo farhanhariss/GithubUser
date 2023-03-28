@@ -2,6 +2,7 @@ package com.farhanharis.githubuser
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -32,10 +33,13 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
 
+        // Observe ProgressBar
         mainViewModel.isLoading.observe(this,
         ){
             showLoading(it)
         }
+
+        //Set User Data
         mainViewModel.listUser.observe(
             this,
         ){listUser ->
@@ -73,7 +77,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListUserData(listUser: List<ItemsItem>) {
+
         val adapter = UserAdapter(listUser)
+
+        adapter.setOntItemClickCallback(object : UserAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: ItemsItem) {
+                val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
+                intent.putExtra("username", data.login)
+                startActivity(intent)
+            }
+        })
         activityMainBinding.rvUser.adapter = adapter
         activityMainBinding.rvUser.layoutManager = LinearLayoutManager(this)
     }
