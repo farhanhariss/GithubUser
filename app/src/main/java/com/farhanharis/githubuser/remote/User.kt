@@ -1,4 +1,4 @@
-package com.farhanharis.githubuser
+package com.farhanharis.githubuser.remote
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

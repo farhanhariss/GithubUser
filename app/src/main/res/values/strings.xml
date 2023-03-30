@@ -5,8 +5,8 @@
     <string name="full_name_detail_user">Fullname</string>
     <string name="following_detail_user">Following</string>
     <string name="followers_detail_user">Followers</string>
-
-
+    <string name="name">Nama User</string>
     <string name="user_number_following">%d following</string>
     <string name="user_number_followers">%d followers</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

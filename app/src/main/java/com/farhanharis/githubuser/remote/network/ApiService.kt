@@ -1,8 +1,8 @@
 package com.farhanharis.githubuser.remote.network
 
-import com.farhanharis.githubuser.remote.DetailUserResponse
-import com.farhanharis.githubuser.remote.GithubResponse
-import com.farhanharis.githubuser.remote.ItemsItem
+import com.farhanharis.githubuser.remote.response.DetailUserResponse
+import com.farhanharis.githubuser.remote.response.GithubResponse
+import com.farhanharis.githubuser.remote.response.ItemsItem
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,20 +17,20 @@ interface ApiService {
     ) : Call<GithubResponse>
 
     //Data User
-    @GET ("user/{username}")
+    @GET ("users/{username}")
     fun getDetailUserData(
         @Path("username")
         username : String
     ) : Call<DetailUserResponse>
 
     // Get Followers
-    @GET ("user/{username}/following")
+    @GET ("users/{username}/followers")
     fun getDataFollowers(
         @Path("username") username : String
     ) : Call<List<ItemsItem>>
 
     //Get Following
-    @GET("user/{username/followers}")
+    @GET("users/{username}/following")
     fun getDataFollowing(
         @Path("username") username : String
     ) : Call<List<ItemsItem>>

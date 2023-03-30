@@ -14,6 +14,7 @@ android {
     }
 
     defaultConfig {
+        buildConfigField("String","KEY",'" Bearer 8KM6sLa4yMzBi0V8kwH1OqYPAdFnRO3miIqT"')
         applicationId "com.farhanharis.githubuser"
         minSdk 21
         targetSdk 33
