@@ -1,4 +1,4 @@
-package com.farhanharis.githubuser
+package com.farhanharis.githubuser.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.farhanharis.githubuser.R
 import com.farhanharis.githubuser.adapter.UserAdapter
 import com.farhanharis.githubuser.remote.response.ItemsItem
 import com.farhanharis.githubuser.viewmodel.MainViewModel

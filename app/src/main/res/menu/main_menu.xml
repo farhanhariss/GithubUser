@@ -8,4 +8,17 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always"
         android:title="Search" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorite"
+        app:showAsAction="collapseActionView|always"
+        android:title="Favorite"/>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="collapseActionView|always"
+        android:title="Setting"
+        />
 </menu>

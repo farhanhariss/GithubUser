@@ -9,4 +9,11 @@
     <string name="user_number_following">%d following</string>
     <string name="user_number_followers">%d followers</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_to_favorite">ADD TO FAVORITE</string>
+    <string name="add">Add Favorite</string>
+    <string name="delete_from_favorite">telah dihapus dari favorite</string>
+    <string name="insert_into_favorite">telah ditambahkan ke favorite</string>
+    <string name="undo">Batalkan</string>
+    <string name="check_favorite">Lihat</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

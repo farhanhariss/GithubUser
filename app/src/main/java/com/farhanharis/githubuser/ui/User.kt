@@ -1,4 +1,4 @@
-package com.farhanharis.githubuser.remote
+package com.farhanharis.githubuser.ui
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -10,4 +10,4 @@ data class User (
     val name : String,
     val followers : String,
     val following : String,
-    ) : Parcelable
+) : Parcelable
